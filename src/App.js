@@ -21,11 +21,6 @@ export default class App extends React.Component {
 
 		if (window.location.pathname == '/close')
 			return window.close();
-		// else {
-		// 	let params = window.location.pathname.substring(1)
-
-		// 	this.handleRoute(params)
-		// }
 
 		this.state = {
 			error: { status: false, msg: '' },
@@ -106,53 +101,46 @@ export default class App extends React.Component {
 			role: 0
 		};
 
-		// ZoomMtg.generateSignature({
-		// 	meetingNumber: meetConfig.meetingNumber,
-		// 	apiKey: meetConfig.apiKey,
-		// 	apiSecret: meetConfig.apiSecret,
-		// 	role: meetConfig.role,
-		// 	success(res) {
-				//console.log('signature', res.result);
-				ZoomMtg.init({
-					debug: false,
-					leaveUrl: '/close',
-					showMeetingHeader: false, 
-					disableInvite: true,
-					meetingInfo: ['topic','host'],
-					success() {
-						ZoomMtg.join(
-							{
-								meetingNumber: meetConfig.meetingNumber,
-								userName: meetConfig.userName,
-								signature: meetConfig.signature,
-								apiKey: meetConfig.apiKey,
-								passWord: meetConfig.passWord,
-								success() {
-									$('#nav-tool').hide();
-									ZoomMtg.showInviteFunction({
-										show: false
-									});
-									//console.log('join meeting success');
 
-									//Hide Meeting Information Icon
-									$('button.meeting-info-icon__icon-wrap').hide()
-									//Hide Info Overlay too
-									$('.meeting-info-icon__recreate-paper').hide()
-									//Hide Phone Call Option
-									$('#dialog-join button[aria-label*="Phone Call"]').hide()
-								},
-								error(res) {
-									//console.log(res);
-								}
-							}
-						);
-					},
-					error(res) {
-						//console.log(res);
+		ZoomMtg.init({
+			debug: false,
+			leaveUrl: '/close',
+			showMeetingHeader: false,
+			disableInvite: true,
+			meetingInfo: ['topic', 'host'],
+			success() {
+				ZoomMtg.join(
+					{
+						meetingNumber: meetConfig.meetingNumber,
+						userName: meetConfig.userName,
+						signature: meetConfig.signature,
+						apiKey: meetConfig.apiKey,
+						passWord: meetConfig.passWord,
+						success() {
+							$('#nav-tool').hide();
+							ZoomMtg.showInviteFunction({
+								show: false
+							});
+							//console.log('join meeting success');
+
+							//Hide Meeting Information Icon
+							$('button.meeting-info-icon__icon-wrap').hide()
+							//Hide Info Overlay too
+							$('.meeting-info-icon__recreate-paper').hide()
+							//Hide Phone Call Option
+							$('#dialog-join button[aria-label*="Phone Call"]').hide()
+						},
+						error(res) {
+							//console.log(res);
+						}
 					}
-				});
-		// 	}
-		// });
+				);
+			},
+			error(res) {
+				//console.log(res);
+			}
+		});
+
 	}
 
 	render() {
@@ -166,7 +154,7 @@ export default class App extends React.Component {
 						<h4 className='text-danger text-center' style={{ margin: '60px 0', color: '#ffff00' }}>{this.state.error.msg}</h4>
 						:
 						<div id="navbar">
-							{this.state.systemReq && this.state.systemReq.browserName == 'Safari' ? 
+							{this.state.systemReq && this.state.systemReq.browserName == 'Safari' ?
 								<h4 className='text-danger text-center' style={{ margin: '30px 0', color: '#ffff00' }}>Safari Browser doesn't support Audio and ScreenShare. Please use another browser eg. Chrome to join Live Class.</h4>
 								:
 								null
